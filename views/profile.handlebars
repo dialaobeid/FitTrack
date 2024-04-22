@@ -52,8 +52,15 @@
                 </ul>
             </div>
         </div>
-
     </main>
+
+    <!-- logout section -->
+    {{#isProfilePage}}
+      <script>
+        // variable makes sure this is the profile page
+        const isProfilePage = true;
+      </script>
+    {{/isProfilePage}}
 
     <script src="./js/profile.js"></script>
 </body>

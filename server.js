@@ -10,7 +10,7 @@ require('dotenv').config();
 const routes = require('./controllers');
 const userRoutes = require('./controllers/api/userRoutes');
 const workoutRoutes = require('./controllers/api/workoutRoutes');
-const supplementRoutes = require('./controllers/api/supplementRoutes');
+// const supplementRoutes = require('./controllers/api/supplementRoutes');
 
 const sequelize = require('./config/connection');
 const helpers = require('./utils/helpers');
@@ -51,7 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 app.use('/api/user', userRoutes);
 app.use('/api/workouts', workoutRoutes);
-app.use('/api/supplements', supplementRoutes);
+// app.use('/api/supplements', supplementRoutes);
 
 // sync models with the database and start server
 sequelize.sync({ force: false }).then(() => {

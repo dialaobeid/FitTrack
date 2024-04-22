@@ -15,18 +15,20 @@
 </head>
 
 <body>
-  <header> 
+  <header>
     <h1>FitTrack</h1>
   </header>
   <nav>
     <a href="/">Home</a>
-    <!-- Conditionally render login or logout links -->
-    {{#if logged_in}}
-        <a href="/profile">profile</a> |
+    {{#if loggedIn}}
+      {{#if isProfilePage}} <!-- Check if it's the profile page -->
         <button class="no-button" id="logout">Logout</button>
-        {{else}}
-        <a href="/login">Login</a>
-        {{/if}}
+      {{else}}
+        <a href="/profile">Profile</a> <!-- Render profile link -->
+      {{/if}}
+    {{else}}
+      <a href="/login">Login</a> <!-- Render login link if not logged in -->
+    {{/if}}
   </nav>
   <main>
     <div class="hero">
@@ -34,9 +36,9 @@
     </div>
   </main>
 
-  <!-- Render script for logged in users only --> 
+  <!-- Render script for logged in users only -->
   {{#if loggedIn}}
-  <script src="{{{ '/js/logout.js' }}}"></script>
+    <script src="{{{ '/js/logout.js' }}}"></script>
   {{/if}}
 </body>
 
