@@ -26,7 +26,7 @@ This project is a full-stack fitness tracking application, allowing users to mon
 
 ## LINKS:
 - Link to github repository for this project: https://github.com/FriedLikeRice/FitTrack
-- Link to deployed application: 
+- Link to deployed application: https://young-bayou-05349-1a4b47be4457.herokuapp.com
 
 ## RESOURCES:
 
