@@ -12,7 +12,10 @@ const userRoutes = require('./controllers/api/userRoutes');
 const workoutRoutes = require('./controllers/api/workoutRoutes');
 // const supplementRoutes = require('./controllers/api/supplementRoutes');
 
-const sequelize = require('./config/connection');
+// replaced below line to make it run on heroku
+// const sequelize = require('./config/connection');
+const sequelize = new Sequelize(process.env.JAWSDB_URL || process.env.DATABASE_URL || 'mysql://root:@localhost:3306/fitness_db');
+
 const helpers = require('./utils/helpers');
 const { Sequelize } = require('sequelize');
 
