@@ -1,4 +1,3 @@
-/*
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
@@ -22,6 +21,5 @@ if (process.env.JAWSDB_URL) {
 }
 
 console.log('Database connection string:', process.env.JAWSDB_URL || 'Local connection');
-*/
 
 module.exports = sequelize;
