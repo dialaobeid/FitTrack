@@ -7,19 +7,19 @@ USE fitness_db;
 -- See database in use --
 SELECT DATABASE();
 
-CREATE TABLE users (
+CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE workoutinfo (
+CREATE TABLE workout (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    workout VARCHAR(255) NOT NULL,
+    weight INT NOT NULL,
+    reps INT NOT NULL,
     user_id INT NOT NULL,
-    workout_name VARCHAR(100) NOT NULL,
-    workout_date DATE NOT NULL,
-    duration_minutes INT,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 

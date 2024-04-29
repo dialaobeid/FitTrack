@@ -22,7 +22,7 @@ Workout.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'User',
+        model: 'user',
         key: 'id'
       }
     }

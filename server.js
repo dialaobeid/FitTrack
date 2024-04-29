@@ -7,10 +7,9 @@ const { Sequelize } = require('sequelize');
 
 // Load environment variables from .env file
 require('dotenv').config();
- 
+
 // Import the sequelize instance from connection.js
 const sequelize = require('./config/connection');
-// const sequelize = new Sequelize(process.env.JAWSDB_URL || process.env.DATABASE_URL || 'mysql://root:@localhost:3306/fitness_db');
 
 const routes = require('./controllers');
 const userRoutes = require('./controllers/api/userRoutes');
@@ -22,21 +21,16 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({ helpers });
 
-/* const dbHost = process.env.DB_HOST;
-const dbUser = process.env.DB_USER;
-const dbPass = process.env.DB_PASSWORD;
-*/ // mentioned in connection.js instead 
-
 // configures middleware, specifying secret key, storage, and other settings
 const sess = {
-  secret: process.env.SESSION_SECRET || 'SuperSecretSecret', // Change to a long, randomly generated string
-  cookie: { 
+  secret: process.env.SESSION_SECRET || 'SuperSecretSecret',
+  cookie: {
     httpOnly: true,
-    maxAge: process.env.SESSION_MAX_AGE || 3600000, 
+    maxAge: process.env.SESSION_MAX_AGE || 3600000,
   },
   resave: false,
   saveUninitialized: true,
-  store: new SequelizeStore({  
+  store: new SequelizeStore({
     db: sequelize,
   }),
 };
@@ -47,20 +41,26 @@ app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// define routes 
 app.use(routes);
 app.use('/api/user', userRoutes);
 app.use('/api/workouts', workoutRoutes);
 
-// sync models with the database and start server
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
-});
+// Import the User and Workout models
+const User = require('./models/user');
+const Workout = require('./models/workout');
 
-// tests database connection
+// Synchronize the models in the correct order
+sequelize.sync({ force: false })
+  .then(() => User.sync())
+  .then(() => Workout.sync())
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  })
+  .catch(err => console.error('Unable to sync the database:', err));
+
+// Test database connection
 sequelize.authenticate()
   .then(() => console.log('Database connected.'))
   .catch(err => console.error('Unable to connect to the database:', err));
