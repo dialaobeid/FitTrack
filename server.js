@@ -3,16 +3,18 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const { Sequelize } = require('sequelize'); // Move this line to the top
+const { Sequelize } = require('sequelize');
 
 // Load environment variables from .env file
 require('dotenv').config();
+ 
+// Import the sequelize instance from connection.js
+const sequelize = require('./config/connection');
+// const sequelize = new Sequelize(process.env.JAWSDB_URL || process.env.DATABASE_URL || 'mysql://root:@localhost:3306/fitness_db');
 
 const routes = require('./controllers');
 const userRoutes = require('./controllers/api/userRoutes');
 const workoutRoutes = require('./controllers/api/workoutRoutes');
-
-const sequelize = new Sequelize(process.env.JAWSDB_URL || process.env.DATABASE_URL || 'mysql://root:@localhost:3306/fitness_db');
 
 const helpers = require('./utils/helpers');
 
@@ -20,9 +22,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({ helpers });
 
-const dbHost = process.env.DB_HOST;
+/* const dbHost = process.env.DB_HOST;
 const dbUser = process.env.DB_USER;
 const dbPass = process.env.DB_PASSWORD;
+*/ // mentioned in connection.js instead 
 
 // configures middleware, specifying secret key, storage, and other settings
 const sess = {
