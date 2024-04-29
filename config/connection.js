@@ -4,7 +4,7 @@ require('dotenv').config();
 let sequelize;
 
 if (process.env.JAWSDB_URL) {
-  // For deployment on Render using JawsDB MySQL addon
+  // For deployment on Heroku using JawsDB MySQL add-on
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
   // For local development using MySQL database
@@ -14,6 +14,7 @@ if (process.env.JAWSDB_URL) {
     process.env.DB_PASSWORD,
     {
       dialect: 'mysql',
+      host: process.env.DB_HOST,
       port: process.env.DB_PORT || 3306
     }
   );
